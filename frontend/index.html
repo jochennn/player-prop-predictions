@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miami Heat Player Prop Predictions</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <div class="header-content">
+                <img src="images/heat-logo.png" alt="Miami Heat Logo" class="heat-logo">
+                <h1>Miami Heat Player Prop Predictions</h1>
+            </div>
+            <div class="header-controls">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#predictions">Prediction History</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main>
+            <section id="home">
+                <h2>Welcome to Miami Heat Player Prop Predictions</h2>
+                <p>Get accurate predictions for Miami Heat player props using advanced analytics.</p>
+                
+                <div class="player-selection">
+                    <h2>Select a Player</h2>
+                    <div class="player-grid">
+                        <div class="loading">Loading players...</div>
+                    </div>
+                    <p id="lastUpdated" class="last-updated"></p>
+                </div>
+
+                <div class="prediction-form">
+                    <h3>Get Your Prediction</h3>
+                    <form id="playerForm">
+                        <input type="hidden" id="player" name="player" required>
+                        
+                        <div class="form-group">
+                            <label for="matchup">Select Opponent:</label>
+                            <select id="matchup" name="matchup" required>
+                                <option value="">Choose opponent...</option>
+                                <option value="celtics">Boston Celtics</option>
+                                <option value="bucks">Milwaukee Bucks</option>
+                                <option value="76ers">Philadelphia 76ers</option>
+                                <option value="cavaliers">Cleveland Cavaliers</option>
+                                <option value="knicks">New York Knicks</option>
+                                <option value="nets">Brooklyn Nets</option>
+                                <option value="hawks">Atlanta Hawks</option>
+                                <option value="wizards">Washington Wizards</option>
+                                <option value="hornets">Charlotte Hornets</option>
+                                <option value="magic">Orlando Magic</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="playerMatchup">Likely Player Matchup:</label>
+                            <select id="playerMatchup" name="playerMatchup" required>
+                                <option value="">Select opponent first...</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Get Prediction</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html> 
