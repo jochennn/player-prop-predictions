@@ -227,14 +227,13 @@ h2 {
 }
 
 .player-card {
-    animation: fadeIn 0.3s ease-out;
-    background: var(--primary-bg);
-    border: 2px solid var(--border-color);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
     cursor: pointer;
-    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid #FF6B00; /* Miami Heat orange */
 }
 
 .player-card:hover {
@@ -243,7 +242,8 @@ h2 {
 }
 
 .player-card.selected {
-    box-shadow: 0 0 0 2px var(--accent-color);
+    border: 3px solid #FF6B00; /* Slightly thicker border for selected state */
+    box-shadow: 0 0 10px rgba(255, 107, 0, 0.3); /* Orange glow effect */
 }
 
 .player-card img {
@@ -281,19 +281,21 @@ h2 {
 }
 
 .player-stats {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
     justify-content: center;
-    gap: 1rem;
     margin-top: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
 }
 
 .player-stats span {
-    background: var(--secondary-bg);
-    padding: 0.2rem 0.5rem;
+    background: var(--card-bg);
+    padding: 0.25rem 0.5rem;
     border-radius: 4px;
-    font-weight: 500;
+    white-space: nowrap;
+    text-align: center;
 }
 
 /* Responsive design */
@@ -335,6 +337,11 @@ h2 {
     .player-card img {
         height: 200px;
     }
+
+    .player-stats {
+        grid-template-columns: 1fr;
+        font-size: 0.8rem;
+    }
 }
 
 .loading {
@@ -362,4 +369,61 @@ h2 {
     color: var(--text-secondary);
     margin-top: 1rem;
     font-style: italic;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.refresh-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.refresh-button:hover {
+    background-color: #e65c00;
+}
+
+.refresh-button:active {
+    transform: scale(0.98);
+}
+
+.refresh-button.loading {
+    opacity: 0.8;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, var(--heat-red) 0%, #F9A01B 100%);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.refresh-button.loading::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    animation: spin 1s linear infinite;
+    margin-right: 0.5rem;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .refresh-button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .refresh-button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 } 

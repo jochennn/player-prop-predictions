@@ -30,10 +30,11 @@ def get_heat_players():
     # Get all players
     all_players = PlayerIndex().get_data_frames()[0]
     
-    # Filter for current Heat players
+    # Filter for current Heat players - only include HERRO, ADEBAYO, and WIGGINS
     miami_heat_players = all_players[
         (all_players['TEAM_ABBREVIATION'] == 'MIA') & 
-        (all_players['ROSTER_STATUS'] == 1)
+        (all_players['ROSTER_STATUS'] == 1) &
+        (all_players['PLAYER_LAST_NAME'].isin(['Herro', 'Adebayo', 'Wiggins']))
     ].copy()
     
     # Sort by points scored (descending)
@@ -60,15 +61,7 @@ def get_heat_players():
                 'points': float(player.get('PTS', 0)),
                 'rebounds': float(player.get('REB', 0)),
                 'assists': float(player.get('AST', 0))
-            },
-            'draft_info': {
-                'year': int(player['DRAFT_YEAR']) if pd.notna(player['DRAFT_YEAR']) else None,
-                'round': int(player['DRAFT_ROUND']) if pd.notna(player['DRAFT_ROUND']) else None,
-                'number': int(player['DRAFT_NUMBER']) if pd.notna(player['DRAFT_NUMBER']) else None
-            },
-            'experience': {
-                'from_year': int(player['FROM_YEAR']),
-                'to_year': int(player['TO_YEAR'])
+            
             }
         }
         players_list.append(player_data)

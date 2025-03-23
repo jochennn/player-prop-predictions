@@ -37,19 +37,6 @@ const currentRoster = [
         }
     },
     {
-        name: "Andrew Wiggins",
-        first_name: "Andrew",
-        last_name: "Wiggins",
-        jersey_number: "22",
-        slug: "andrew-wiggins",
-        position: "F",
-        stats: {
-            points: 17.7,
-            rebounds: 4.5,
-            assists: 2.5
-        }
-    },
-    {
         name: "Bam Adebayo",
         first_name: "Bam",
         last_name: "Adebayo",
@@ -63,198 +50,16 @@ const currentRoster = [
         }
     },
     {
-        name: "Duncan Robinson",
-        first_name: "Duncan",
-        last_name: "Robinson",
-        jersey_number: "55",
-        slug: "duncan-robinson",
+        name: "Andrew Wiggins",
+        first_name: "Andrew",
+        last_name: "Wiggins",
+        jersey_number: "22",
+        slug: "andrew-wiggins",
         position: "F",
         stats: {
-            points: 11.2,
-            rebounds: 2.3,
+            points: 17.7,
+            rebounds: 4.5,
             assists: 2.5
-        }
-    },
-    {
-        name: "Terry Rozier",
-        first_name: "Terry",
-        last_name: "Rozier",
-        jersey_number: "2",
-        slug: "terry-rozier",
-        position: "G",
-        stats: {
-            points: 11.2,
-            rebounds: 3.8,
-            assists: 2.7
-        }
-    },
-    {
-        name: "Nikola Jović",
-        first_name: "Nikola",
-        last_name: "Jović",
-        jersey_number: "5",
-        slug: "nikola-jović",
-        position: "F",
-        stats: {
-            points: 10.7,
-            rebounds: 3.9,
-            assists: 2.8
-        }
-    },
-    {
-        name: "Jaime Jaquez Jr.",
-        first_name: "Jaime",
-        last_name: "Jaquez Jr.",
-        jersey_number: "11",
-        slug: "jaime-jaquez-jr",
-        position: "G",
-        stats: {
-            points: 8.7,
-            rebounds: 4.6,
-            assists: 2.5
-        }
-    },
-    {
-        name: "Kel'el Ware",
-        first_name: "Kel'el",
-        last_name: "Ware",
-        jersey_number: "7",
-        slug: "kelel-ware",
-        position: "C",
-        stats: {
-            points: 8.7,
-            rebounds: 6.6,
-            assists: 0.9
-        }
-    },
-    {
-        name: "Davion Mitchell",
-        first_name: "Davion",
-        last_name: "Mitchell",
-        jersey_number: "45",
-        slug: "davion-mitchell",
-        position: "G",
-        stats: {
-            points: 7.1,
-            rebounds: 2.1,
-            assists: 4.6
-        }
-    },
-    {
-        name: "Alec Burks",
-        first_name: "Alec",
-        last_name: "Burks",
-        jersey_number: "18",
-        slug: "alec-burks",
-        position: "G",
-        stats: {
-            points: 6.3,
-            rebounds: 2.7,
-            assists: 1.2
-        }
-    },
-    {
-        name: "Haywood Highsmith",
-        first_name: "Haywood",
-        last_name: "Highsmith",
-        jersey_number: "24",
-        slug: "haywood-highsmith",
-        position: "F",
-        stats: {
-            points: 6.3,
-            rebounds: 3.1,
-            assists: 1.4
-        }
-    },
-    {
-        name: "Dru Smith",
-        first_name: "Dru",
-        last_name: "Smith",
-        jersey_number: "12",
-        slug: "dru-smith",
-        position: "G",
-        stats: {
-            points: 6.2,
-            rebounds: 2.6,
-            assists: 1.6
-        }
-    },
-    {
-        name: "Kevin Love",
-        first_name: "Kevin",
-        last_name: "Love",
-        jersey_number: "42",
-        slug: "kevin-love",
-        position: "F-C",
-        stats: {
-            points: 5.5,
-            rebounds: 4.3,
-            assists: 1.0
-        }
-    },
-    {
-        name: "Kyle Anderson",
-        first_name: "Kyle",
-        last_name: "Anderson",
-        jersey_number: "20",
-        slug: "kyle-anderson",
-        position: "F-G",
-        stats: {
-            points: 5.2,
-            rebounds: 3.1,
-            assists: 2.2
-        }
-    },
-    {
-        name: "Pelle Larsson",
-        first_name: "Pelle",
-        last_name: "Larsson",
-        jersey_number: "9",
-        slug: "pelle-larsson",
-        position: "G",
-        stats: {
-            points: 3.9,
-            rebounds: 1.4,
-            assists: 0.9
-        }
-    },
-    {
-        name: "Keshad Johnson",
-        first_name: "Keshad",
-        last_name: "Johnson",
-        jersey_number: "16",
-        slug: "keshad-johnson",
-        position: "F",
-        stats: {
-            points: 1.6,
-            rebounds: 1.7,
-            assists: 0.3
-        }
-    },
-    {
-        name: "Josh Christopher",
-        first_name: "Josh",
-        last_name: "Christopher",
-        jersey_number: "8",
-        slug: "josh-christopher",
-        position: "G",
-        stats: {
-            points: 0.8,
-            rebounds: 0.4,
-            assists: 0.5
-        }
-    },
-    {
-        name: "Isaiah Stevens",
-        first_name: "Isaiah",
-        last_name: "Stevens",
-        jersey_number: "None",
-        slug: "isaiah-stevens",
-        position: "G",
-        stats: {
-            points: null,
-            rebounds: null,
-            assists: null
         }
     }
 ];
@@ -269,7 +74,11 @@ async function fetchLatestPlayerStats() {
             throw new Error('Failed to fetch player stats');
         }
         const data = await response.json();
-        return data;
+        // Convert array to object with slugs as keys
+        return data.reduce((acc, player) => {
+            acc[player.slug] = player.stats;
+            return acc;
+        }, {});
     } catch (error) {
         console.error('Error fetching player stats:', error);
         return null;
@@ -366,16 +175,21 @@ function createPlayerCards() {
     });
 }
 
-// Initialize stats update when the page loads
-document.addEventListener('DOMContentLoaded', async () => {
-    createPlayerCards();
-    updateLastUpdatedText();
+// Add refresh button event listener
+document.getElementById('refreshStats').addEventListener('click', async () => {
+    const button = document.getElementById('refreshStats');
+    button.disabled = true;
+    button.innerHTML = '<span>Refreshing...</span>';
     
-    if (shouldUpdateStats()) {
+    try {
         const newStats = await fetchLatestPlayerStats();
-        if (newStats) {
-            updatePlayerStats(newStats);
-        }
+        updatePlayerStats(newStats);
+    } catch (error) {
+        console.error('Error refreshing stats:', error);
+        alert('Failed to refresh stats. Please try again later.');
+    } finally {
+        button.disabled = false;
+        button.innerHTML = '<span>Refresh for current season averages</span>';
     }
 });
 
@@ -384,92 +198,52 @@ const playerMatchups = {
     celtics: {
         'tyler-herro': ['Derrick White', 'Jrue Holiday'],
         'bam-adebayo': ['Kristaps Porzingis', 'Al Horford'],
-        'duncan-robinson': ['Sam Hauser', 'Jaylen Brown'],
-        'kevin-love': ['Al Horford', 'Luke Kornet'],
-        'jaime-jaquez-jr': ['Jaylen Brown', 'Sam Hauser'],
-        'nikola-jovic': ['Jayson Tatum', 'Sam Hauser'],
-        'haywood-highsmith': ['Jayson Tatum', 'Sam Hauser']
+        'andrew-wiggins': ['Jayson Tatum', 'Sam Hauser']
     },
     bucks: {
         'tyler-herro': ['Damian Lillard', 'Patrick Beverley'],
         'bam-adebayo': ['Brook Lopez', 'Bobby Portis'],
-        'duncan-robinson': ['Malik Beasley', 'Pat Connaughton'],
-        'kevin-love': ['Bobby Portis', 'Brook Lopez'],
-        'jaime-jaquez-jr': ['Khris Middleton', 'Pat Connaughton'],
-        'nikola-jovic': ['Giannis Antetokounmpo', 'Jae Crowder'],
-        'haywood-highsmith': ['Khris Middleton', 'Jae Crowder']
+        'andrew-wiggins': ['Khris Middleton', 'Jae Crowder']
     },
     '76ers': {
-        'jimmy-butler': ['Tobias Harris', 'Kelly Oubre Jr.'],
+        'tyler-herro': ['Tyrese Maxey', 'DeAnthony Melton'],
         'bam-adebayo': ['Joel Embiid', 'Paul Reed'],
-        'tyler-hero': ['Tyrese Maxey', 'DeAnthony Melton'],
-        'kyle-lowry': ['Tyrese Maxey', 'DeAnthony Melton'],
-        'caleb-martin': ['Tobias Harris', 'Kelly Oubre Jr.'],
-        'kevin-love': ['Joel Embiid', 'Paul Reed'],
-        'duncan-robinson': ['Tyrese Maxey', 'DeAnthony Melton']
+        'andrew-wiggins': ['Tobias Harris', 'Kelly Oubre Jr.']
     },
     cavaliers: {
-        'jimmy-butler': ['Donovan Mitchell', 'Max Strus'],
+        'tyler-herro': ['Darius Garland', 'Donovan Mitchell'],
         'bam-adebayo': ['Jarrett Allen', 'Evan Mobley'],
-        'tyler-hero': ['Darius Garland', 'Donovan Mitchell'],
-        'kyle-lowry': ['Darius Garland', 'Donovan Mitchell'],
-        'caleb-martin': ['Donovan Mitchell', 'Max Strus'],
-        'kevin-love': ['Jarrett Allen', 'Evan Mobley'],
-        'duncan-robinson': ['Darius Garland', 'Donovan Mitchell']
+        'andrew-wiggins': ['Donovan Mitchell', 'Max Strus']
     },
     knicks: {
-        'jimmy-butler': ['OG Anunoby', 'Josh Hart'],
+        'tyler-herro': ['Jalen Brunson', 'Donte DiVincenzo'],
         'bam-adebayo': ['Isaiah Hartenstein', 'Julius Randle'],
-        'tyler-hero': ['Jalen Brunson', 'Donte DiVincenzo'],
-        'kyle-lowry': ['Jalen Brunson', 'Donte DiVincenzo'],
-        'caleb-martin': ['OG Anunoby', 'Josh Hart'],
-        'kevin-love': ['Isaiah Hartenstein', 'Julius Randle'],
-        'duncan-robinson': ['Jalen Brunson', 'Donte DiVincenzo']
+        'andrew-wiggins': ['OG Anunoby', 'Josh Hart']
     },
     nets: {
-        'jimmy-butler': ['Mikal Bridges', 'Cam Johnson'],
+        'tyler-herro': ['Spencer Dinwiddie', 'Cam Thomas'],
         'bam-adebayo': ['Nic Claxton', 'Dorian Finney-Smith'],
-        'tyler-hero': ['Spencer Dinwiddie', 'Cam Thomas'],
-        'kyle-lowry': ['Spencer Dinwiddie', 'Cam Thomas'],
-        'caleb-martin': ['Mikal Bridges', 'Cam Johnson'],
-        'kevin-love': ['Nic Claxton', 'Dorian Finney-Smith'],
-        'duncan-robinson': ['Spencer Dinwiddie', 'Cam Thomas']
+        'andrew-wiggins': ['Mikal Bridges', 'Cam Johnson']
     },
     hawks: {
-        'jimmy-butler': ['Dejounte Murray', 'Bogdan Bogdanovic'],
+        'tyler-herro': ['Trae Young', 'Dejounte Murray'],
         'bam-adebayo': ['Clint Capela', 'Onyeka Okongwu'],
-        'tyler-hero': ['Trae Young', 'Dejounte Murray'],
-        'kyle-lowry': ['Trae Young', 'Dejounte Murray'],
-        'caleb-martin': ['Dejounte Murray', 'Bogdan Bogdanovic'],
-        'kevin-love': ['Clint Capela', 'Onyeka Okongwu'],
-        'duncan-robinson': ['Trae Young', 'Dejounte Murray']
+        'andrew-wiggins': ['Dejounte Murray', 'Bogdan Bogdanovic']
     },
     wizards: {
-        'jimmy-butler': ['Deni Avdija', 'Corey Kispert'],
+        'tyler-herro': ['Jordan Poole', 'Tyus Jones'],
         'bam-adebayo': ['Daniel Gafford', 'Marvin Bagley III'],
-        'tyler-hero': ['Jordan Poole', 'Tyus Jones'],
-        'kyle-lowry': ['Jordan Poole', 'Tyus Jones'],
-        'caleb-martin': ['Deni Avdija', 'Corey Kispert'],
-        'kevin-love': ['Daniel Gafford', 'Marvin Bagley III'],
-        'duncan-robinson': ['Jordan Poole', 'Tyus Jones']
+        'andrew-wiggins': ['Deni Avdija', 'Corey Kispert']
     },
     hornets: {
-        'jimmy-butler': ['Brandon Miller', 'Gordon Hayward'],
+        'tyler-herro': ['LaMelo Ball', 'Terry Rozier'],
         'bam-adebayo': ['Mark Williams', 'PJ Washington'],
-        'tyler-hero': ['LaMelo Ball', 'Terry Rozier'],
-        'kyle-lowry': ['LaMelo Ball', 'Terry Rozier'],
-        'caleb-martin': ['Brandon Miller', 'Gordon Hayward'],
-        'kevin-love': ['Mark Williams', 'PJ Washington'],
-        'duncan-robinson': ['LaMelo Ball', 'Terry Rozier']
+        'andrew-wiggins': ['Brandon Miller', 'Gordon Hayward']
     },
     magic: {
-        'jimmy-butler': ['Franz Wagner', 'Paolo Banchero'],
+        'tyler-herro': ['Jalen Suggs', 'Cole Anthony'],
         'bam-adebayo': ['Wendell Carter Jr.', 'Goga Bitadze'],
-        'tyler-hero': ['Jalen Suggs', 'Cole Anthony'],
-        'kyle-lowry': ['Jalen Suggs', 'Cole Anthony'],
-        'caleb-martin': ['Franz Wagner', 'Paolo Banchero'],
-        'kevin-love': ['Wendell Carter Jr.', 'Goga Bitadze'],
-        'duncan-robinson': ['Jalen Suggs', 'Cole Anthony']
+        'andrew-wiggins': ['Franz Wagner', 'Paolo Banchero']
     }
 };
 
