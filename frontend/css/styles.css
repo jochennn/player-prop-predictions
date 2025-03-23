@@ -379,14 +379,15 @@ h2 {
 }
 
 .refresh-button {
-    background-color: var(--accent-color);
+    background-color: #FF6B00;
     color: white;
+    padding: 0.5rem 1rem;
     border: none;
-    padding: 8px 16px;
     border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .refresh-button:hover {
@@ -397,10 +398,10 @@ h2 {
     transform: scale(0.98);
 }
 
-.refresh-button.loading {
-    opacity: 0.8;
+.refresh-button:disabled {
+    background-color: #cccccc;
     cursor: not-allowed;
-    background: linear-gradient(135deg, var(--heat-red) 0%, #F9A01B 100%);
+    transform: none;
 }
 
 @keyframes spin {

@@ -74,8 +74,12 @@ async function fetchLatestPlayerStats() {
             throw new Error('Failed to fetch player stats');
         }
         const data = await response.json();
+        // Filter for only Herro, Bam, and Wiggins
+        const filteredData = data.filter(player => 
+            ['tyler-herro', 'bam-adebayo', 'andrew-wiggins'].includes(player.slug)
+        );
         // Convert array to object with slugs as keys
-        return data.reduce((acc, player) => {
+        return filteredData.reduce((acc, player) => {
             acc[player.slug] = player.stats;
             return acc;
         }, {});
@@ -189,7 +193,7 @@ document.getElementById('refreshStats').addEventListener('click', async () => {
         alert('Failed to refresh stats. Please try again later.');
     } finally {
         button.disabled = false;
-        button.innerHTML = '<span>Refresh for current season averages</span>';
+        button.innerHTML = '<span>Refresh</span>';
     }
 });
 

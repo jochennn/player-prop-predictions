@@ -54,14 +54,10 @@ def get_heat_players():
             'jersey_number': str(player.get('JERSEY_NUMBER', '')),
             'slug': player['PLAYER_SLUG'],
             'position': player.get('POSITION', ''),
-            'height': player.get('HEIGHT', ''),
-            'weight': player.get('WEIGHT', ''),
-            'headshot': headshot_url,
             'stats': {
                 'points': float(player.get('PTS', 0)),
                 'rebounds': float(player.get('REB', 0)),
                 'assists': float(player.get('AST', 0))
-            
             }
         }
         players_list.append(player_data)
